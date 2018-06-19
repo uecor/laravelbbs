@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
 
        Schema::defaultStringLength(191);
        \Carbon\Carbon::setLocale('zh');
+
+
+
     }
 
     /**
@@ -30,8 +33,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-        //
-    }
+     public function register()
+     {
+         if (app()->isLocal()) {
+             $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
+         }
+     }
 }
