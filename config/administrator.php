@@ -36,12 +36,21 @@ return array(
      *      'Analytics' => ['E-Commerce' => 'page.pages.analytics'],
      *  ]
      */
-    'menu' => [
-        '用户与权限' => [
-            'users',
-        ],
-    ],
-
+     'menu' => [
+         '用户与权限' => [
+             'users',
+             'roles',
+             'permissions',
+         ],
+         '内容管理' => [
+             'categories',
+             'topics',
+             'replies',
+         ],
+         '站点管理' => [
+             'settings.site',
+         ],
+     ],
     /*
      * 权限控制的回调函数。
      *
