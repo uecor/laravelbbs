@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use App\Models\User;
 use App\Models\Category;
+use App\Models\Link;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,12 +19,16 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index(Request $request, Topic $topic)
+	public function index(Request $request, Topic $topic, User $user, Link $link)
 	{
-	//	$topics = Topic::paginate();
-    //    $topics = Topic::with('user', 'category')->paginate(30);
     $topics = $topic->withOrder($request->order)->paginate(20);
-		return view('topics.index', compact('topics'));
+    $active_users = $user->getActiveUsers();
+//遇到dd会停止，通常用于测试
+//   dd($active_users);
+    $links = $link->getAllCached();
+  return view('topics.index', compact('topics', 'active_users', 'links'));
+
+
 	}
 
     public function show(Request $request, Topic $topic)
